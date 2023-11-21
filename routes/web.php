@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/pets', [PetController::class, 'getPetsByStatus']);
+Route::get('/pets/{id}', [PetController::class, 'show'])->where('id', '[0-9]+');
+Route::get('/pets/{id}/edit', [PetController::class, 'edit']);
+Route::get('/pets/create', [PetController::class, 'create']);
+Route::post('/pets', [PetController::class, 'store'])->name('pets.store');
+Route::put('/pets/{id}', [PetController::class, 'update'])->name('pets.update');
+Route::delete('/pets/{id}', [PetController::class, 'destroy']);
